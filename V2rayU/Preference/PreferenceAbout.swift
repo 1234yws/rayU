@@ -29,7 +29,26 @@ final class PreferenceAboutViewController: NSViewController, PreferencePane {
         self.VersionLabel.stringValue = "Version " + appVersion
 
         if let v2rayCoreVersion = UserDefaults.get(forKey: .xRayCoreVersion) {
-            self.V2rayCoreVersion.stringValue = "based on Xray-core " + v2rayCoreVersion
+            self.V2rayCoreVersion.stringValue = "based on Xray-core " + getV2rayPath()!
         }
+        
+//        self.VersionLabel.stringValue = getV2rayPath()!
+    }
+    
+    func getV2rayPath() -> String? {
+        let defaultV2ray = "\(Bundle.main.resourcePath ?? "")/v2ray-core/xray"
+        let launch_path = defaultV2ray
+        let task = Process()
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        task.standardError = pipe
+        task.launchPath = launch_path
+        task.arguments = ["version"]
+        task.launch()
+        
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let output = String(data: data, encoding: .utf8)!
+        return output
+
     }
 }

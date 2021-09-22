@@ -103,6 +103,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Register global hotkey
         ShortcutsController.bindShortcuts()
+        
+//        getV2rayPath()
     }
 
     func checkDefault() {
@@ -183,5 +185,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // restore system proxy
         V2rayLaunch.setSystemProxy(mode: .restore)
     }
-   
+    
 }
