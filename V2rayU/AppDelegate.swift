@@ -104,7 +104,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Register global hotkey
         ShortcutsController.bindShortcuts()
         
-//        getV2rayPath()
     }
 
     func checkDefault() {
