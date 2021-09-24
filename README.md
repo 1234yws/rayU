@@ -35,4 +35,3 @@ rm -f ~/Library/Logs/V2rayU.log
 ```
  ~/Library/Preferences/net.yanue.V2rayU.plist
 ```
-另外, 可以通过 command + 空格 搜索 console.app , 打开后搜索 V2rayU 定位具体闪退错误日志
