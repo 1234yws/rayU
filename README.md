@@ -28,7 +28,7 @@ rm -f ~/Library/Preferences/net.yanue.V2rayU.plist
 rm -f ~/Library/Logs/V2rayU.log
 ```
 ### 相关问题
-**1. 闪退**
+**闪退**
 
 > 大多因为读取配置文件问题,删除以下文件重新配置即可
 
