@@ -9,7 +9,7 @@
     v2ray-core日志: ~/Library/Logs/V2rayU.log
     当前启动服务配置: /Applications/V2rayU.app/Contents/Resources/config.json
     其他服务配置信息: ~/Library/Preferences/net.yanue.V2rayU.plist
-
+    内核地址：~/.V2rayU
 
     如果启动无反应可以尝试从命令行手动启动,查看原因
 ```
