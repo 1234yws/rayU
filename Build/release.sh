@@ -3,7 +3,8 @@
 
 APP_NAME="V2rayU"
 INFOPLIST_FILE="Info.plist"
-BASE_DIR=$HOME/Documents/V2rayU-master
+##路径
+BASE_DIR=$HOME/Documents/Project/rayU
 BUILD_DIR=${BASE_DIR}/Build
 V2rayU_ARCHIVE=${BUILD_DIR}/V2rayU.xcarchive
 V2rayU_RELEASE=${BUILD_DIR}/release
@@ -18,6 +19,7 @@ function updatePlistVersion() {
 }
 
 function build() {
+    echo "开始编译"
     echo "Building V2rayU."${APP_Version}
     echo "Cleaning up old archive & app..."
     rm -rf ${V2rayU_ARCHIVE} ${V2rayU_RELEASE}
@@ -169,10 +171,12 @@ function commit() {
 function downloadV2ray() {
     echo "正在查询最新版v2ray ..."
     rm -fr v2ray-core
-    tag='v1.4.3'
-    echo "v2ray-core version: ${tag}"
-    url="https://github.com/XTLS/Xray-core/releases/download/v1.4.3/Xray-macos-64.zip"
-    echo "正在下载最新版v2ray: ${tag}"
+    # tag='v1.4.3'
+    # echo "v2ray-core version: ${tag}"
+    echo "v2ray-core version: 最新版"
+
+    url="https://github.com/XTLS/Xray-core/releases/latest/download/Xray-macos-64.zip"
+    # echo "正在下载最新版v2ray: ${tag}"
     curl -Lo Xray-macos-64.zip ${url}
 
     unzip -o Xray-macos-64.zip -d v2ray-core
