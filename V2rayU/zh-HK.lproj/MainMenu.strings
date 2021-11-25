@@ -196,3 +196,6 @@
 
 /* Class = "NSMenuItem"; title = "View config.json"; ObjectID = "b3o-tG-rp3"; */
 "b3o-tG-rp3.title" = "查看config.json";
+
+/* Class = "NSMenuItem"; title = "Query Data"; ObjectID = "xch-pa-3i3"; */
+"xch-pa-3i3.title" = "查询流量";
