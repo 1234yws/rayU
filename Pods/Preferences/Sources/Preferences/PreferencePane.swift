@@ -1,41 +1,30 @@
 import Cocoa
 
-public struct PreferencePaneIdentifier: Hashable, RawRepresentable, Codable {
-	public typealias Identifier = PreferencePaneIdentifier
+extension Preferences {
+	public struct PaneIdentifier: Hashable, RawRepresentable, Codable {
+		public let rawValue: String
 
-	public let rawValue: String
-
-	public init(rawValue: String) {
-		self.rawValue = rawValue
+		public init(rawValue: String) {
+			self.rawValue = rawValue
+		}
 	}
 }
 
-public protocol PreferencePane: AnyObject {
-	typealias Identifier = PreferencePaneIdentifier
-
-	var preferencePaneIdentifier: Identifier { get }
+public protocol PreferencePane: NSViewController {
+	var preferencePaneIdentifier: Preferences.PaneIdentifier { get }
 	var preferencePaneTitle: String { get }
 	var toolbarItemIcon: NSImage { get }
-	var viewController: NSViewController { get }
-}
-
-extension PreferencePane where Self: NSViewController {
-	public var viewController: NSViewController {
-		return self
-	}
 }
 
 extension PreferencePane {
 	public var toolbarItemIdentifier: NSToolbarItem.Identifier {
-		return preferencePaneIdentifier.toolbarItemIdentifier
+		preferencePaneIdentifier.toolbarItemIdentifier
 	}
 
-	public var toolbarItemIcon: NSImage {
-		return NSImage(size: .zero)
-	}
+	public var toolbarItemIcon: NSImage { .empty }
 }
 
-extension PreferencePane.Identifier {
+extension Preferences.PaneIdentifier {
 	public init(_ rawValue: String) {
 		self.init(rawValue: rawValue)
 	}
@@ -45,6 +34,6 @@ extension PreferencePane.Identifier {
 	}
 
 	public var toolbarItemIdentifier: NSToolbarItem.Identifier {
-		return NSToolbarItem.Identifier(rawValue)
+		NSToolbarItem.Identifier(rawValue)
 	}
 }

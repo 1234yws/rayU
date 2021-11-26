@@ -4,11 +4,7 @@ final class ToolbarItemStyleViewController: NSObject, PreferencesStyleController
 	let toolbar: NSToolbar
 	let centerToolbarItems: Bool
 	let preferencePanes: [PreferencePane]
-
-	var isKeepingWindowCentered: Bool {
-		return centerToolbarItems
-	}
-
+	var isKeepingWindowCentered: Bool { centerToolbarItems }
 	weak var delegate: PreferencesStyleControllerDelegate?
 
 	init(preferencePanes: [PreferencePane], toolbar: NSToolbar, centerToolbarItems: Bool) {
@@ -35,7 +31,7 @@ final class ToolbarItemStyleViewController: NSObject, PreferencesStyleController
 		return toolbarItemIdentifiers
 	}
 
-	func toolbarItem(preferenceIdentifier: PreferencePane.Identifier) -> NSToolbarItem? {
+	func toolbarItem(preferenceIdentifier: Preferences.PaneIdentifier) -> NSToolbarItem? {
 		guard let preference = (preferencePanes.first { $0.preferencePaneIdentifier == preferenceIdentifier }) else {
 			preconditionFailure()
 		}
@@ -50,7 +46,7 @@ final class ToolbarItemStyleViewController: NSObject, PreferencesStyleController
 
 	@IBAction private func toolbarItemSelected(_ toolbarItem: NSToolbarItem) {
 		delegate?.activateTab(
-			preferenceIdentifier: PreferencePane.Identifier(fromToolbarItemIdentifier: toolbarItem.itemIdentifier),
+			preferenceIdentifier: Preferences.PaneIdentifier(fromToolbarItemIdentifier: toolbarItem.itemIdentifier),
 			animated: true
 		)
 	}

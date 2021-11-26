@@ -11,7 +11,8 @@ target 'V2rayU' do
   pod 'Alamofire'
   pod 'SwiftyJSON'
   # master branch
-  pod 'Preferences', :git => 'https://github.com/sindresorhus/Preferences.git'
+  # , :git => 'https://github.com/sindresorhus/Preferences.git'
+  pod 'Preferences'
   pod 'Sparkle'
   pod 'QRCoder'
   pod 'MASShortcut'

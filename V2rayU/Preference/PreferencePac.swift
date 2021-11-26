@@ -19,7 +19,7 @@ let GFWListFilePath = PACRulesDirPath + "gfwlist.txt"
 let GFWListURL = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"
 
 final class PreferencePacViewController: NSViewController, PreferencePane {
-    let preferencePaneIdentifier = PreferencePane.Identifier.pacTab
+    let preferencePaneIdentifier = Preferences.PaneIdentifier.pacTab
     let preferencePaneTitle = "Pac"
     let toolbarItemIcon = NSImage(named: NSImage.bookmarksTemplateName)!
 

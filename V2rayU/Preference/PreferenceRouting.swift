@@ -11,7 +11,7 @@ import Preferences
 
 final class PreferenceRoutingViewController: NSViewController, PreferencePane {
 
-    let preferencePaneIdentifier = PreferencePane.Identifier.routingTab
+    let preferencePaneIdentifier = Preferences.PaneIdentifier.routingTab
     let preferencePaneTitle = "Routing"
     let toolbarItemIcon = NSImage(named: NSImage.networkName)!
 

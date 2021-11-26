@@ -12,7 +12,7 @@ import JavaScriptCore
 
 
 final class PreferenceDnsViewController: NSViewController, PreferencePane {
-    let preferencePaneIdentifier = PreferencePane.Identifier.dnsTab
+    let preferencePaneIdentifier = Preferences.PaneIdentifier.dnsTab
     let preferencePaneTitle = "Dns"
     let toolbarItemIcon = NSImage(named: NSImage.multipleDocumentsName)!
 

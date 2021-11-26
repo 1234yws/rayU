@@ -3,34 +3,36 @@ import Cocoa
 final class PreferencesTabViewController: NSViewController, PreferencesStyleControllerDelegate {
 	private var activeTab: Int?
 	private var preferencePanes = [PreferencePane]()
-	internal var preferencePanesCount: Int {
-		return preferencePanes.count
-	}
-
+	private var style: Preferences.Style?
+	internal var preferencePanesCount: Int { preferencePanes.count }
 	private var preferencesStyleController: PreferencesStyleController!
-
-	private var isKeepingWindowCentered: Bool {
-		return preferencesStyleController.isKeepingWindowCentered
-	}
+	private var isKeepingWindowCentered: Bool { preferencesStyleController.isKeepingWindowCentered }
 
 	private var toolbarItemIdentifiers: [NSToolbarItem.Identifier] {
-		return preferencesStyleController?.toolbarItemIdentifiers() ?? []
+		preferencesStyleController?.toolbarItemIdentifiers() ?? []
 	}
 
-	var window: NSWindow! {
-		return view.window
-	}
+	var window: NSWindow! { view.window }
 
-	var isAnimated: Bool = true
+	var isAnimated = true
+
+	var activeViewController: NSViewController? {
+		guard let activeTab = activeTab else {
+			return nil
+		}
+
+		return preferencePanes[activeTab]
+	}
 
 	override func loadView() {
-		self.view = NSView()
-		self.view.translatesAutoresizingMaskIntoConstraints = false
+		view = NSView()
+		view.translatesAutoresizingMaskIntoConstraints = false
 	}
 
-	func configure(preferencePanes: [PreferencePane], style: PreferencesStyle) {
+	func configure(preferencePanes: [PreferencePane], style: Preferences.Style) {
 		self.preferencePanes = preferencePanes
-		self.children = preferencePanes.map { $0.viewController }
+		self.style = style
+		children = preferencePanes
 
 		let toolbar = NSToolbar(identifier: "PreferencesToolbar")
 		toolbar.allowsUserCustomization = false
@@ -50,7 +52,7 @@ final class PreferencesTabViewController: NSViewController, PreferencesStyleCont
 		}
 		preferencesStyleController.delegate = self
 
-		// Called last so that `preferencesStyleController` can be asked for items
+		// Called last so that `preferencesStyleController` can be asked for items.
 		window.toolbar = toolbar
 	}
 
@@ -58,7 +60,7 @@ final class PreferencesTabViewController: NSViewController, PreferencesStyleCont
 		activateTab(preferenceIdentifier: preferencePane.preferencePaneIdentifier, animated: animated)
 	}
 
-	func activateTab(preferenceIdentifier: PreferencePane.Identifier, animated: Bool) {
+	func activateTab(preferenceIdentifier: Preferences.PaneIdentifier, animated: Bool) {
 		guard let index = (preferencePanes.firstIndex { $0.preferencePaneIdentifier == preferenceIdentifier }) else {
 			return activateTab(index: 0, animated: animated)
 		}
@@ -91,22 +93,22 @@ final class PreferencesTabViewController: NSViewController, PreferencesStyleCont
 	}
 
 	private func updateWindowTitle(tabIndex: Int) {
-		self.window.title = {
+		window.title = {
 			if preferencePanes.count > 1 {
 				return preferencePanes[tabIndex].preferencePaneTitle
 			} else {
-				let preferences = Localization.get(identifier: .preferences)
+				let preferences = Localization[.preferences]
 				let appName = Bundle.main.appName
 				return "\(appName) \(preferences)"
 			}
 		}()
 	}
 
-	/// Cached constraints that pin childViewController views to the content view
+	/// Cached constraints that pin `childViewController` views to the content view.
 	private var activeChildViewConstraints = [NSLayoutConstraint]()
 
 	private func immediatelyDisplayTab(index: Int) {
-		let toViewController = children[index]
+		let toViewController = preferencePanes[index]
 		view.addSubview(toViewController.view)
 		activeChildViewConstraints = toViewController.view.constrainToSuperviewBounds()
 		setWindowFrame(for: toViewController, animated: false)
@@ -119,11 +121,16 @@ final class PreferencesTabViewController: NSViewController, PreferencesStyleCont
 			return
 		}
 
-		let fromViewController = children[activeTab]
-		let toViewController = children[index]
-		let options: NSViewController.TransitionOptions = animated && isAnimated
-			? [.crossfade]
-			: []
+		let fromViewController = preferencePanes[activeTab]
+		let toViewController = preferencePanes[index]
+
+		// View controller animations only work on macOS 10.14 and newer.
+		let options: NSViewController.TransitionOptions
+		if #available(macOS 10.14, *) {
+			options = animated && isAnimated ? [.crossfade] : []
+		} else {
+			options = []
+		}
 
 		view.removeConstraints(activeChildViewConstraints)
 
@@ -131,8 +138,8 @@ final class PreferencesTabViewController: NSViewController, PreferencesStyleCont
 			from: fromViewController,
 			to: toViewController,
 			options: options
-		) {
-			self.activeChildViewConstraints = toViewController.view.constrainToSuperviewBounds()
+		) { [self] in
+			activeChildViewConstraints = toViewController.view.constrainToSuperviewBounds()
 		}
 	}
 
@@ -202,15 +209,15 @@ final class PreferencesTabViewController: NSViewController, PreferencesStyleCont
 
 extension PreferencesTabViewController: NSToolbarDelegate {
 	func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-		return toolbarItemIdentifiers
+		toolbarItemIdentifiers
 	}
 
 	func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-		return toolbarItemIdentifiers
+		toolbarItemIdentifiers
 	}
 
 	func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-		return toolbarItemIdentifiers
+		style == .segmentedControl ? [] : toolbarItemIdentifiers
 	}
 
 	public func toolbar(
@@ -222,6 +229,6 @@ extension PreferencesTabViewController: NSToolbarDelegate {
 			return nil
 		}
 
-		return preferencesStyleController.toolbarItem(preferenceIdentifier: PreferencePane.Identifier(fromToolbarItemIdentifier: itemIdentifier))
+		return preferencesStyleController.toolbarItem(preferenceIdentifier: Preferences.PaneIdentifier(fromToolbarItemIdentifier: itemIdentifier))
 	}
 }

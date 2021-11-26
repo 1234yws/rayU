@@ -91,34 +91,42 @@ struct Localization {
 		]
 	]
 
-	// TODO: Use a static subscript instead of a `get` method when using Swift 5.1
 	/**
 	Returns the localized version of the given string.
 
-	- Note: If the system's locale can't be determined, the English localization of the string will be returned.
 	- Parameter identifier: Identifier of the string to localize.
-	*/
-	static func get(identifier: Identifier) -> String {
-		let locale = Locale.current
 
+	- Note: If the system's locale can't be determined, the English localization of the string will be returned.
+	*/
+	static subscript(identifier: Identifier) -> String {
 		// Force-unwrapped since all of the involved code is under our control.
 		let localizedDict = Localization.localizedStrings[identifier]!
 		let defaultLocalizedString = localizedDict["en"]!
 
-		guard
-			let languageCode = locale.languageCode,
-			let regionCode = locale.regionCode
-		else {
+		// Iterate through all user-preferred languages until we find one that has a valid language code.
+		let preferredLocale = Locale.preferredLanguages
+			.lazy
+			.map { Locale(identifier: $0) }
+			.first { $0.languageCode != nil }
+			?? .current
+
+		guard let languageCode = preferredLocale.languageCode else {
 			return defaultLocalizedString
 		}
 
-		let localeIdentifier = "\(languageCode)-\(regionCode)"
-		if let localizedString = localizedDict[localeIdentifier] {
-			return localizedString
-		}
-
-		if let localizedString = localizedDict[languageCode] {
-			return localizedString
+		// Chinese is the only language where different region codes result in different translations.
+		if languageCode == "zh" {
+			let regionCode = preferredLocale.regionCode ?? ""
+			if regionCode == "HK" || regionCode == "TW" {
+				return localizedDict["\(languageCode)-\(regionCode)"]!
+			} else {
+				// Fall back to "regular" zh-CN if neither the HK or TW region codes are found.
+				return localizedDict["\(languageCode)-CN"]!
+			}
+		} else {
+			if let localizedString = localizedDict[languageCode] {
+				return localizedString
+			}
 		}
 
 		return defaultLocalizedString

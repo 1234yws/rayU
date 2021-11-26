@@ -11,7 +11,7 @@ import Preferences
 import ServiceManagement
 
 final class PreferenceGeneralViewController: NSViewController, PreferencePane {
-    let preferencePaneIdentifier = PreferencePane.Identifier.generalTab
+    let preferencePaneIdentifier = Preferences.PaneIdentifier.generalTab
     let preferencePaneTitle = "General"
     let toolbarItemIcon = NSImage(named: NSImage.preferencesGeneralName)!
 
