@@ -10,7 +10,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - MASShortcut
-  - Preferences
+  - Preferences (= 2.5.0)
   - QRCoder
   - Sparkle
   - Swifter
@@ -35,6 +35,6 @@ SPEC CHECKSUMS:
   Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 437497bf13dffafa84e32b874f2fd9d1a307820e
+PODFILE CHECKSUM: d591b23440e3b62a0d4c27cc06dc34aba2a87133
 
 COCOAPODS: 1.11.2
