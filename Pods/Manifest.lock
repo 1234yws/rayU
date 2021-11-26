@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.8.2)
   - MASShortcut (2.3.6)
+  - Preferences (2.5.0)
   - QRCoder (1.1.0)
   - Sparkle (1.24.0)
   - Swifter (1.4.7)
@@ -9,6 +10,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - MASShortcut
+  - Preferences (= 2.5.0)
   - QRCoder
   - Sparkle
   - Swifter
@@ -18,6 +20,7 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - MASShortcut
+    - Preferences
     - QRCoder
     - Sparkle
     - Swifter
@@ -26,11 +29,12 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   MASShortcut: 9c215e8a8a78f3d01ce56da48e2730ab66b538fa
+  Preferences: a78dbe5c407afb66408a929d4708f8fd82abad85
   QRCoder: cbd2bee531cc86d286df7942334cfed94c803ae4
   Sparkle: 270cd27377bf04e9c128af06e3a22d0f572d6ee3
   Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: e61682239a68537ac2dde82b63250cb013bc2b4f
+PODFILE CHECKSUM: d591b23440e3b62a0d4c27cc06dc34aba2a87133
 
 COCOAPODS: 1.11.2

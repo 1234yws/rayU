@@ -178,6 +178,7 @@ code_sign_if_enabled() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MASShortcut/MASShortcut.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Preferences/Preferences.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/QRCoder/QRCoder.framework"
   install_framework "${PODS_ROOT}/Sparkle/Sparkle.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Swifter/Swifter.framework"
@@ -186,6 +187,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MASShortcut/MASShortcut.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Preferences/Preferences.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/QRCoder/QRCoder.framework"
   install_framework "${PODS_ROOT}/Sparkle/Sparkle.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Swifter/Swifter.framework"
