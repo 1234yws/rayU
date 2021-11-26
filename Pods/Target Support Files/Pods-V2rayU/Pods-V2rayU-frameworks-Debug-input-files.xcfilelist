@@ -1,7 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-V2rayU/Pods-V2rayU-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/MASShortcut/MASShortcut.framework
-${BUILT_PRODUCTS_DIR}/Preferences/Preferences.framework
 ${BUILT_PRODUCTS_DIR}/QRCoder/QRCoder.framework
 ${PODS_ROOT}/Sparkle/Sparkle.framework
 ${BUILT_PRODUCTS_DIR}/Swifter/Swifter.framework
