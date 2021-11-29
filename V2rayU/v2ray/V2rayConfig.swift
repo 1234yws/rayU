@@ -1131,7 +1131,12 @@ class V2rayConfig: NSObject {
                         var user = V2rayOutboundVLessUser()
                         user.id = val["id"].stringValue
                         user.flow = val["flow"].stringValue
-                        user.encryption = val["encryption"].stringValue
+                        if (val["encryption"].stringValue.count) > 0{
+                            user.encryption = val["encryption"].stringValue
+                        }
+                        else{
+                            user.encryption = "none"
+                        }
                         user.level = val["level"].intValue
                         users.append(user)
                     }
