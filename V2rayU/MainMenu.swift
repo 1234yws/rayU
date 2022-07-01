@@ -13,7 +13,6 @@ import Sparkle
 import Alamofire
 import SwiftyJSON
 
-
 let menuController = (NSApplication.shared.delegate as? AppDelegate)?.statusMenu.delegate as! MenuController
 let V2rayUpdater = SUUpdater()
 
