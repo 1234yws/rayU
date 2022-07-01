@@ -2,6 +2,15 @@ V2rayU.xcodeproj/project.xcworkspace/xcuserdata
 V2rayU.xcodeproj/xcuserdata
 
 V2rayU.xcworkspace/xcuserdata
+
+project.xcworkspace
+xcuserdata
+UserInterfaceState.xcuserstate
+project.xcworkspace/
+xcuserdata/
+UserInterface.xcuserstate 
+
+
 *.DS_Store
 .idea
 *.app
