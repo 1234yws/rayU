@@ -11,20 +11,14 @@ import ServiceManagement
 import Preferences
 import Sparkle
 import Alamofire
+
 import SwiftyJSON
+
 
 let menuController = (NSApplication.shared.delegate as? AppDelegate)?.statusMenu.delegate as! MenuController
 let V2rayUpdater = SUUpdater()
 
-//extension PreferencePane.Identifier {
-//    static let generalTab = Identifier("generalTab")
-//    static let advanceTab = Identifier("advanceTab")
-//    static let subscribeTab = Identifier("subscribeTab")
-//    static let pacTab = Identifier("pacTab")
-//    static let routingTab = Identifier("routingTab")
-//    static let dnsTab = Identifier("dnsTab")
-//    static let aboutTab = Identifier("aboutTab")
-//}
+
 extension Preferences.PaneIdentifier {
     static let generalTab = Self("generalTab")
     static let advanceTab = Self("advanceTab")

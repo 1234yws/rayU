@@ -3,8 +3,10 @@
 
 APP_NAME="V2rayU"
 INFOPLIST_FILE="Info.plist"
+
 ##路径
 BASE_DIR=$HOME/Documents/Project/rayU
+
 BUILD_DIR=${BASE_DIR}/Build
 V2rayU_ARCHIVE=${BUILD_DIR}/V2rayU.xcarchive
 V2rayU_RELEASE=${BUILD_DIR}/release
@@ -19,7 +21,9 @@ function updatePlistVersion() {
 }
 
 function build() {
+
     echo "开始编译"
+
     echo "Building V2rayU."${APP_Version}
     echo "Cleaning up old archive & app..."
     rm -rf ${V2rayU_ARCHIVE} ${V2rayU_RELEASE}
@@ -31,7 +35,9 @@ function build() {
     xcodebuild -archivePath ${V2rayU_ARCHIVE} -exportArchive -exportPath ${V2rayU_RELEASE} -exportOptionsPlist ./build.plist
 
     echo "Cleaning up archive..."
+
     echo "${V2rayU_ARCHIVE}"
+
     rm -rf ${V2rayU_ARCHIVE}
 
     chmod -R 755 "${V2rayU_RELEASE}/${APP_NAME}.app/Contents/Resources/v2ray-core"
@@ -169,6 +175,7 @@ function commit() {
 }
 
 function downloadV2ray() {
+
     echo "正在查询最新版v2ray ..."
     rm -fr v2ray-core
     # tag='v1.4.3'
@@ -177,11 +184,30 @@ function downloadV2ray() {
 
     url="https://github.com/XTLS/Xray-core/releases/latest/download/Xray-macos-64.zip"
     # echo "正在下载最新版v2ray: ${tag}"
+
     curl -Lo Xray-macos-64.zip ${url}
 
     unzip -o Xray-macos-64.zip -d v2ray-core
     \cp v2ray-core/xray v2ray-core/v2ray
 }
+
+
+function downloadV2rayArm() {
+    DMG_FINAL="${APP_NAME}-arm64.dmg"
+    rm -fr ${DMG_FINAL} ${V2rayU_RELEASE}
+
+    echo "正在查询最新版v2ray-arm64 ..."
+    rm -fr v2ray-core
+    tag='v1.5.9'
+    echo "v2ray-core version: ${tag}"
+    url="https://github.com/XTLS/Xray-core/releases/download/v1.5.9/Xray-macos-arm64-v8a.zip"
+    echo "正在下载最新版v2ray: ${tag}"
+    curl -Lo Xray-macos-arm64-v8a.zip ${url}
+
+    unzip -o Xray-macos-arm64-v8a.zip -d v2ray-core
+    \cp v2ray-core/xray v2ray-core/v2ray
+}
+
 
 function createDmgByAppdmg() {
 #    umount "/Volumes/${APP_NAME}"
@@ -217,9 +243,27 @@ function makeDmg() {
     exit;;
     esac
 
-    rm -fr ${DMG_FINAL} ${V2rayU_RELEASE}
+    echo "请选择build的版本 :"
+    options=("64" "arm64")
+    select target in "${options[@]}"
+    do
+        case $target in
+        "64")
+            echo "你选择了: 64"
+            downloadV2ray
+            break
+            ;;
+        "arm64")
+            echo "你选择了: arm64"
+            downloadV2rayArm
+            break
+            ;;
+        *) echo "请选择";;
+        esac
+    done
+
     updatePlistVersion
-    downloadV2ray
+
     build
     createDmgByAppdmg
 }
@@ -238,4 +282,5 @@ then
 else
     makeDmg
 fi
+makeDmg
 echo 'done'

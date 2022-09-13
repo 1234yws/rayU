@@ -13,6 +13,7 @@ target 'V2rayU' do
   # master branch
   # , :git => 'https://github.com/sindresorhus/Preferences.git'
   pod 'Preferences','2.5.0'
+
   pod 'Sparkle'
   pod 'QRCoder'
   pod 'MASShortcut'

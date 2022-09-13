@@ -11,7 +11,9 @@ import Preferences
 import ServiceManagement
 
 final class PreferenceGeneralViewController: NSViewController, PreferencePane {
+
     let preferencePaneIdentifier = Preferences.PaneIdentifier.generalTab
+
     let preferencePaneTitle = "General"
     let toolbarItemIcon = NSImage(named: NSImage.preferencesGeneralName)!
 
@@ -22,7 +24,10 @@ final class PreferenceGeneralViewController: NSViewController, PreferencePane {
     @IBOutlet weak var autoLaunch: NSButtonCell!
     @IBOutlet weak var autoCheckVersion: NSButtonCell!
     @IBOutlet weak var autoUpdateServers: NSButtonCell!
-    @IBOutlet weak var autoSelectFastestServer: NSButtonCell!
+//<<<<<<< HEAD
+//    @IBOutlet weak var autoSelectFastestServer: NSButtonCell!
+//=======
+//>>>>>>> upstream/master
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +43,12 @@ final class PreferenceGeneralViewController: NSViewController, PreferencePane {
         if UserDefaults.getBool(forKey: .autoUpdateServers) {
             autoUpdateServers.state = .on
         }
-        if UserDefaults.getBool(forKey: .autoSelectFastestServer) {
-            autoSelectFastestServer.state = .on
-        }
+//<<<<<<< HEAD
+//        if UserDefaults.getBool(forKey: .autoSelectFastestServer) {
+//            autoSelectFastestServer.state = .on
+//        }
+//=======
+//>>>>>>> upstream/master
     }
 
     @IBAction func SetAutoLogin(_ sender: NSButtonCell) {
@@ -56,10 +64,13 @@ final class PreferenceGeneralViewController: NSViewController, PreferencePane {
         UserDefaults.setBool(forKey: .autoUpdateServers, value: sender.state == .on)
     }
 
-    @IBAction func SetAutoSelectFastestServer(_ sender: NSButton) {
-        UserDefaults.setBool(forKey: .autoSelectFastestServer, value: sender.state == .on)
-    }
-
+//<<<<<<< HEAD
+//    @IBAction func SetAutoSelectFastestServer(_ sender: NSButton) {
+//        UserDefaults.setBool(forKey: .autoSelectFastestServer, value: sender.state == .on)
+//    }
+//
+//=======
+//>>>>>>> upstream/master
     @IBAction func goFeedback(_ sender: NSButton) {
         guard let url = URL(string: "https://github.com/yanue/v2rayu/issues") else {
             return

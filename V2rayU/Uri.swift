@@ -255,7 +255,11 @@ class ShadowsockUri {
         self.port = Int(port)
 
         // This can be overriden by the fragment part of SIP002 URL
-        self.remark = (parsedUrl.queryItems?.filter({ $0.name == "Remark" }).first?.value ?? "").urlDecoded()
+//<<<<<<< HEAD
+//        self.remark = (parsedUrl.queryItems?.filter({ $0.name == "Remark" }).first?.value ?? "").urlDecoded()
+//=======
+        self.remark = (parsedUrl.queryItems?.filter({ $0.name == "Remark" }).first?.value ?? _tag ?? "").urlDecoded()
+//>>>>>>> upstream/master
 
         if let password = parsedUrl.password {
             self.method = user.lowercased()
@@ -392,12 +396,25 @@ class TrojanUri {
     var password: String = ""
     var remark: String = ""
 
+    var sni: String = ""
+    var flow: String = ""
+    var security: String = "tls"
     var error: String = ""
 
-    // trojan://password@remote_host:remote_port
+    // trojan://pass@remote_host:443?flow=xtls-rprx-origin&security=xtls&sni=sni&host=remote_host#trojan
     func encode() -> String {
-        let uri = self.password + "@" + self.host + ":" + String(self.port)
-        return "trojan://" + uri + "#" + self.remark
+        var uri = URLComponents()
+        uri.scheme = "trojan"
+        uri.password = self.password
+        uri.host = self.host
+        uri.port = self.port
+        uri.queryItems = [
+            URLQueryItem(name: "flow", value: self.flow),
+            URLQueryItem(name: "security", value: self.security),
+            URLQueryItem(name: "sni", value: self.sni),
+        ]
+        return (uri.url?.absoluteString ?? "") + "#" + self.remark
+
     }
 
     func Init(url: URL) {
@@ -416,6 +433,27 @@ class TrojanUri {
         self.host = host
         self.port = Int(port)
         self.password = password
+
+        let queryItems = url.queryParams()
+        for item in queryItems {
+            switch item.key {
+            case "sni":
+                self.sni = item.value as! String
+                break
+            case "flow":
+                self.flow = item.value as! String
+                break
+            case "security":
+                self.security = item.value as! String
+                break
+            default:
+                break
+            }
+        }
+        if self.security == "" {
+            self.security = "tls"
+        }
+
         self.remark = (url.fragment ?? "trojan").urlDecoded()
     }
 }

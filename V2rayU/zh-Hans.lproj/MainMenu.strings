@@ -1,4 +1,3 @@
-
 /* Class = "NSMenuItem"; title = "Generate QR Code"; ObjectID = "0vX-fS-8FW"; */
 "0vX-fS-8FW.title" = "分享二维码";
 
@@ -197,5 +196,9 @@
 /* Class = "NSMenuItem"; title = "View config.json"; ObjectID = "b3o-tG-rp3"; */
 "b3o-tG-rp3.title" = "查看config.json";
 
+
 /* Class = "NSMenuItem"; title = "Query Data"; ObjectID = "xch-pa-3i3"; */
-"xch-pa-3i3.title" = "查询流量";
+"xch-pa-3i3.title" = "Query Data";
+
+/* Class = "NSMenuItem"; title = "Check Spelling While Typing"; ObjectID = "zAf-Lw-Sh2"; */
+"zAf-Lw-Sh2.title" = "Check Spelling While Typing";

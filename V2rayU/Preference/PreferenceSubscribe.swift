@@ -12,7 +12,9 @@ import Alamofire
 import SwiftyJSON
 
 final class PreferenceSubscribeViewController: NSViewController, PreferencePane {
+
     let preferencePaneIdentifier = Preferences.PaneIdentifier.subscribeTab
+
     let preferencePaneTitle = "Subscribe"
     let toolbarItemIcon = NSImage(named: NSImage.userAccountsName)!
     let tableViewDragType: String = "v2ray.subscribe"

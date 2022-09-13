@@ -10,7 +10,9 @@ import Cocoa
 import Preferences
 
 final class PreferenceAboutViewController: NSViewController, PreferencePane {
+
     let preferencePaneIdentifier = Preferences.PaneIdentifier.aboutTab
+
     let preferencePaneTitle = "About"
     let toolbarItemIcon = NSImage(named: NSImage.infoName)!
     
@@ -29,6 +31,7 @@ final class PreferenceAboutViewController: NSViewController, PreferencePane {
         self.VersionLabel.stringValue = "Version " + appVersion
 
         if let v2rayCoreVersion = UserDefaults.get(forKey: .xRayCoreVersion) {
+//<<<<<<< HEAD
             self.V2rayCoreVersion.stringValue = "based on Xray-core " + getV2rayPath()!
         }
         
@@ -50,5 +53,9 @@ final class PreferenceAboutViewController: NSViewController, PreferencePane {
         let output = String(data: data, encoding: .utf8)!
         return output
 
+//=======
+//            self.V2rayCoreVersion.stringValue = "based on v2ray-core " + v2rayCoreVersion
+//        }
+//>>>>>>> upstream/master
     }
 }
