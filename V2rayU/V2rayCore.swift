@@ -12,7 +12,7 @@ import SwiftyJSON
 // v2ray-core version check, download, unzip
 class V2rayCore {
 
-    static let version = "v1.5.5"
+    static let version = "v1.5.4"
     // need replace ${version}
     //  "https://github.com/XTLS/Xray-core/releases/download/v1.4.2/Xray-macos-64.zip"
     var x86_url: String = "https://github.com/XTLS/Xray-core/releases/download/v1.5.5/Xray-macos-64.zip"
