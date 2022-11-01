@@ -12,11 +12,11 @@ import SwiftyJSON
 // v2ray-core version check, download, unzip
 class V2rayCore {
 
-    static let version = "v1.5.4"
+    static let version = "v1.6.0"
     // need replace ${version}
     //  "https://github.com/XTLS/Xray-core/releases/download/v1.4.2/Xray-macos-64.zip"
-    var x86_url: String = "https://github.com/XTLS/Xray-core/releases/download/v1.5.5/Xray-macos-64.zip"
-    var arm64_url: String = "https://github.com/XTLS/Xray-core/releases/download/v1.5.5/Xray-macos-arm64-v8a.zip"
+    var x86_url: String = "https://github.com/XTLS/Xray-core/releases/download/v1.6.0/Xray-macos-64.zip"
+    var arm64_url: String = "https://github.com/XTLS/Xray-core/releases/download/v1.6.0/Xray-macos-arm64-v8a.zip"
 
     // last release version info
     let versionUrl: String = "https://api.github.com/repos/XTLS/Xray-core/releases/latest"
@@ -133,7 +133,7 @@ class V2rayCore {
 
     func download() {
 
-        let version = UserDefaults.get(forKey: .xRayCoreVersion) ?? "v1.5.5"
+        let version = UserDefaults.get(forKey: .xRayCoreVersion) ?? "v1.6.0"
         var url: String = self.x86_url
         if utsname.isAppleSilicon {
             url = self.arm64_url
